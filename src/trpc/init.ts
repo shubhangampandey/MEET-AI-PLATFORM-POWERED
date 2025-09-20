@@ -32,7 +32,7 @@ export const protectedProcedure = baseProcedure.use(async ({ ctx, next }) => {
   if (!session) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
-      message: "You must be logged in to access this resource.",
+      message: "Unauthorized",
     });
   }
   return next({ ctx: { ...ctx, auth: session } });

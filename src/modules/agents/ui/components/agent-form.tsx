@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import GenerateAvatar from "@/components/generate-avatar";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 import {
   Form,
@@ -33,7 +34,9 @@ export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps
 
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
-      onSuccess: () => {},
+      onSuccess: () => {
+        queryClient.invalidateQueries( trpc.agents.getMany.queryOptions() );
+      },
       onError: () => {},
     })
   );
@@ -56,4 +59,55 @@ export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps
       createAgent.mutate(values);
     }
   };
+  return (
+    <Form {...form}>
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <GenerateAvatar seed={form.watch("name")} variant="botttsNeutral" className="border size-16" />
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter agent name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="instructions"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Instructions</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Enter agent instructions" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+
+        
+        />
+        <div className="flex justify-between gap-x-2">
+          {onCancel && (
+            <Button
+              variant="ghost"
+              onClick={onCancel}
+              type="button"
+              disabled={isPending}
+            >
+              Cancel
+            </Button>
+          )}
+        </div>
+        <Button type="submit" disabled={isPending}>
+          {isEdit ? "Update Agent" : "Create Agent"}
+        </Button>
+
+      </form>
+    </Form>
+  );
 };
