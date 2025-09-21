@@ -20,6 +20,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { on } from "events";
+import { toast } from "sonner";
 
 interface AgentFormProps {
   onSuccess?: () => void;
@@ -36,8 +38,14 @@ export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps
     trpc.agents.create.mutationOptions({
       onSuccess: () => {
         queryClient.invalidateQueries( trpc.agents.getMany.queryOptions() );
+        if(initialValues?.id){
+          queryClient.invalidateQueries( trpc.agents.getOne.queryOptions({id: initialValues.id}) );
+        }
+        onSuccess?.();
       },
-      onError: () => {},
+      onError: (error) => {
+        toast.error(error.message || "Something went wrong");
+      },
     })
   );
 
