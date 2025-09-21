@@ -17,7 +17,17 @@ export const agentsRouter = createTRPCRouter({
     return existingAgent;
   }),
 
-  getMany: protectedProcedure.query(async () => {
+  getMany: protectedProcedure
+  .input(z.object({
+    page: z.number().default(1),
+    pageSize: z
+    .number()
+    .min(1)
+    .max(100)
+    .default(10),
+    search: z.string().nullish()
+  }).optional())
+  .query(async () => {
     const data = await db.select(
       {
         meetingCount: sql<number>`6`,
