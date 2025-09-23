@@ -3,6 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { getQueryClient, trpc } from "@/trpc/server";
 
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import {AgentIdView ,AgentIdViewError,AgentIdViewLoading} from "@/modules/agents/ui/views/agent-id-views"; // Adjust the import path as needed
 
 interface Props {
   params: Promise<{ agentId: string }>;
@@ -18,8 +19,8 @@ const Page = async ({ params }: Props) => {
 
 return (
   <HydrationBoundary state={dehydrate(queryClient)}>
-    <Suspense fallback={<p>Loading</p>}>
-      <ErrorBoundary fallback={<p>Error</p>}>
+    <Suspense fallback={<AgentIdViewLoading />}>
+      <ErrorBoundary fallback={<AgentIdViewError />}>
         <AgentIdView agentId={agentId} />
       </ErrorBoundary>
     </Suspense>
