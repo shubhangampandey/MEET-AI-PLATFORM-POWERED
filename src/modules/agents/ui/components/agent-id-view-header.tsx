@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight , TrashIcon, PencilIcon, MoreVertical, MoreVerticalIcon} from "lucide-react";
+import { ChevronRight , TrashIcon, PencilIcon, MoreVerticalIcon} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,

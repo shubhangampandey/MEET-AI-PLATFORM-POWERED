@@ -38,9 +38,17 @@ export const AgentIdView = ({ agentId }: Props) => {
           variant="outline"
           className="flex items-center gap-x-2 [&>svg]:size-4"
             >
-              <VideoIcon/>
+              <VideoIcon className="text-blue-700"/>
               {data.meetingCount}{data.meetingCount === 1 ? " Meeting" : " Meetings"}
               </Badge>
+          <div className="flex flex-col gap-y-4">
+          <p className="text-lg font-medium">
+            Instructions
+          </p>
+          <p className="text-neutral-800"> 
+            {data.instructions}
+          </p>
+          </div>
          </div>
       </div>
     </div>
