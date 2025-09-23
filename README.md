@@ -145,8 +145,8 @@ yarn dev
 
 ## 🧩 Using shadcn/ui
 
-- Componentes reutilizables en `src/components/ui/`.
-- Ejemplo:
+- Reusable components in `src/components/ui/`.
+- Example:
 
 ```tsx
 import { Button } from "@/components/ui/button";
@@ -158,9 +158,9 @@ import { Button } from "@/components/ui/button";
 
 ## 🔑 Better Auth
 
-- Autenticación segura y moderna.
-- Flujos en `src/app/(auth)/sign-in` y `sign-up`.
-- Vistas personalizadas en `src/modules/auth/ui/views/`.
+- Secure and modern authentication.
+- Flows in `src/app/(auth)/sign-in` and `sign-up`.
+- Custom views in `src/modules/auth/ui/views/`.
 
 ---
 
@@ -174,27 +174,13 @@ import { Button } from "@/components/ui/button";
 
 ## 📚 Rules and best practices
 
-- Usa **Bun** para desarrollo rápido y eficiente.
+- Usa **Bun** for fast and efficient development.
 - Follow Next.js folder convention (app router).
-- Componentes UI en `src/components/ui/`.
-- Hooks personalizados en `src/hooks/`.
+- UI components in `src/components/ui/`.
+- Custom hooks in `src/hooks/`.
 - Keep dependencies updated.
-- Usa ESLint y Prettier para mantener el código limpio.
+- Use ESLint and Prettier to keep the code clean.
 - Do not upload keys or secrets to the repository.
-
----
-
-## 🧪 Testing
-
-- Coming soon: integration with Jest and E2E tests.
-
----
-
-## 🤝 Contribute
-
-1. Fork the repository.
-2. Create a branch for your feature/fix.
-3. Make a PR describing your changes.
 
 ---
 
