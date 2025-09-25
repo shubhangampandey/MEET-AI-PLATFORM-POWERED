@@ -11,7 +11,7 @@ const Page = () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Suspense fallback={<MeetingsViewLoading/>}>
-       <ErrorBoundary fallback={<MeetingsViewError/>} component={<MeetingsView/>}>
+       <ErrorBoundary fallback={<MeetingsViewError/>}>
   <MeetingsView/>
 </ErrorBoundary>
       </Suspense>
