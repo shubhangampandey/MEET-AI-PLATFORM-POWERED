@@ -1,7 +1,7 @@
 import { useTRPC } from "@/trpc/client";
 import type { MeetingGetOne } from "../../types";
 import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { meetingsInsertSchema } from "../../schemas";
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { on } from "events";
 import { toast } from "sonner";
+import { useState } from "react";
 interface MeetingFormProps {
   onSuccess?: (id?: string) => void;
   onCancel?: () => void;
@@ -30,7 +31,18 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues
   const trpc = useTRPC();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [agentSearch, setAgentSearch] = useState("");
+  const agents= useQuery(
+    trpc.agents.getMany.queryOptions({
+      pageSize: 100,
+      search: "",
+    }),
 
+
+
+
+  );
   const createMeeting = useMutation(
     trpc.meetings.create.mutationOptions({
       onSuccess: async (data) => {

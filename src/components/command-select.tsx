@@ -34,12 +34,42 @@ export const CommandSelect = ({
   const selectedOption = options.find((option) => option.value === value);
   return (
       <>
-      <Button>
+      <Button
+      type="button"
+      variant="outline"
+      role="combobox"
+      className={cn(
+        "h-9 justify-between font-normal px-2",
+        !selectedOption && "text-muted-foreground",
+        className, 
+      )}
+      >
           <div>
           {selectedOption ?.children ?? placeholder }
-          
             </div>
+          <ChevronsUpDownIcon/>
       </Button>
+      <CommandResponsiveDialog 
+      open={open}
+      onOpenChange={setOpen}
+      >
+        <CommandInput placeholder="Search..." onValueChange={onSearch} />
+        <CommandList>
+          <CommandEmpty><span className='text-muted-foreground'>No results found.</span></CommandEmpty>
+          {options.map((option) => (
+            <CommandItem
+              key={option.id}
+              onSelect={() => {
+                onSelect(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.children}
+            </CommandItem>
+          ))}
+        </CommandList>
+      </CommandResponsiveDialog>
+
     </>
   )
 }
