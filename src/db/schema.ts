@@ -70,7 +70,7 @@ export const agents = pgTable("agents", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
-const meetingStatus=pgEnum("meeting_status", [
+export const meetingStatus=pgEnum("meeting_status", [
 "upcoming",
 "active",
 "completed",
