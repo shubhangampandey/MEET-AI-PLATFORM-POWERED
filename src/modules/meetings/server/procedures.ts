@@ -5,7 +5,6 @@ import { and, count, desc, eq, getTableColumns, ilike} from "drizzle-orm";
 import { z } from "zod";
 
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/constants";
-import { CarTaxiFront } from "lucide-react";
 import { TRPCError } from "@trpc/server";
 
 export const meetingsRouter = createTRPCRouter({
