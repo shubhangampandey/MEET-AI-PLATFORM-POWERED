@@ -36,7 +36,7 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues
   const agents= useQuery(
     trpc.agents.getMany.queryOptions({
       pageSize: 100,
-      search: "",
+      search: agentSearch,
     }),
 
 
