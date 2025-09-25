@@ -15,7 +15,7 @@ import { loadSearchParams } from "@/modules/agents/params";
 interface Props{
   searchParams: Promise<SearchParams>;
 }
-const AgentsPage = async ({searchParams}:Props) => {
+const Page = async ({searchParams}:Props) => {
   const filters = await loadSearchParams(searchParams);
   const session = await auth.api.getSession({
       headers: await headers(),
@@ -40,4 +40,4 @@ const AgentsPage = async ({searchParams}:Props) => {
     </>
   );
 };
-export default AgentsPage;
+export default Page;
