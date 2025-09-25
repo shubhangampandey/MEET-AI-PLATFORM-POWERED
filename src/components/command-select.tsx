@@ -35,11 +35,11 @@ export const CommandSelect = ({
   return (
       <>
       <Button>
-<div>
-{}
-
-</div>
+          <div>
+          {selectedOption ?.children ?? placeholder }
+          
+            </div>
       </Button>
-      </>
+    </>
   )
 }
