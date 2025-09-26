@@ -1,15 +1,16 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { AgentGetOne } from "../../types";
+import { AgentGetMany } from "../../types";
 import GenerateAvatar from "@/components/generate-avatar";
 import { Badge } from "@/components/ui/badge";
 import { VideoIcon, CornerDownRightIcon } from "lucide-react";
+import { Row } from "@tanstack/react-table";
 
-export const columns: ColumnDef<AgentGetOne>[] = [
+export const columns: ColumnDef<AgentGetMany>[number] = [
   {
     accessorKey: "name",
     header: "Agent Name",
-    cell: ({ row }) => (
+    cell: ({ row }: { row: Row<AgentGetMany> }) => (
       <div className="flex flex-col gap-y-1">
         <div className="flex items-center gap-x-2">
           <GenerateAvatar seed={row.getValue("name")} variant="botttsNeutral" className="size-6" />
@@ -25,7 +26,7 @@ export const columns: ColumnDef<AgentGetOne>[] = [
   {
     accessorKey: "meetingCount",
     header: "Meetings",
-    cell: ({ row }) => (
+    cell: ({ row }: { row: Row<AgentGetMany>}) => (
       <Badge variant="outline" className="flex items-center gap-x-2 [&>svg]:size-4">
         <VideoIcon className="text-blue-700" />
         {row.getValue("meetingCount")} {row.getValue("meetingCount") === 1 ? "Meeting" : "Meetings"}
