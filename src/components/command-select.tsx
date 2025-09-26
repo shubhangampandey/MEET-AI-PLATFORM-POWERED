@@ -35,6 +35,7 @@ export const CommandSelect = ({
   return (
       <>
       <Button
+      onClick={()=>setOpen(true)}
       type="button"
       variant="outline"
       role="combobox"
@@ -49,7 +50,8 @@ export const CommandSelect = ({
             </div>
           <ChevronsUpDownIcon/>
       </Button>
-      <CommandResponsiveDialog 
+      <CommandResponsiveDialog
+      shouldFilter={!onSearch} 
       open={open}
       onOpenChange={setOpen}
       >

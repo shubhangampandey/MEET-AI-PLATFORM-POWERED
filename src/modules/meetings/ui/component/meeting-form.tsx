@@ -8,10 +8,13 @@ import { meetingsInsertSchema } from "../../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { CommandSelect } from "@/components/command-select";
+import GeneratedAvatar from "@/components/generate-avatar";
+import NewAgentDialog from "@/modules/agents/ui/components/new-agent-dialog";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,17 +34,13 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues
   const trpc = useTRPC();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
+  const [openNewAgentDialog, setOpenNewAgentDialog] = useState(false);
   const [agentSearch, setAgentSearch] = useState("");
   const agents= useQuery(
     trpc.agents.getMany.queryOptions({
       pageSize: 100,
       search: agentSearch,
-    }),
-
-
-
-
+    }),  
   );
   const createMeeting = useMutation(
     trpc.meetings.create.mutationOptions({
@@ -90,6 +89,8 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues
     }
   };
   return (
+    <>
+    <NewAgentDialog open={openNewAgentDialog} onOpenChange={setOpenNewAgentDialog}/>
     <Form {...form}>
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         
@@ -102,6 +103,50 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues
               <FormControl>
                 <Input placeholder="Enter agent name" {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="agentId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Agent</FormLabel>
+              <FormControl>
+                <CommandSelect
+                options={(agents.data?.items ?? []).map((agent)=>({
+                id: agent.id,
+                value: agent.id,
+                children:(
+                     <div className="flex items-center gap-x-2">
+                       <GeneratedAvatar
+                       seed={agent.name}
+                       variant="botttsNeutral"
+                       className="border size-6"
+                       />
+                       <span>
+                        {agent.name}
+                       </span>
+                     </div>
+
+                )}))}
+                onSelect={field.onChange}
+                onSearch={setAgentSearch}
+                value={field.value}
+                placeholder="Select an agent"
+                />
+              </FormControl>
+              <FormDescription>
+                Not found what you&apos;re looking for?{" "}
+                <button
+                type="button"
+                className="text-primary hover:underline"
+                onClick={()=>setOpenNewAgentDialog(true)}
+                >
+                  Create new agent
+                </button>
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -127,5 +172,6 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues
 
       </form>
     </Form>
+    </>
   );
 };
