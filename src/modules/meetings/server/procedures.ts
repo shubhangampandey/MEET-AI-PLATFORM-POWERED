@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import {  meetings } from "@/db/schema";
+import {  agents, meetings } from "@/db/schema";
 import { baseProcedure, createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { and, count, desc, eq, getTableColumns, ilike} from "drizzle-orm";
 import { z } from "zod";
@@ -79,6 +79,7 @@ export const meetingsRouter = createTRPCRouter({
     const data = await db
       .select({
       ...getTableColumns(meetings),
+      agent : agents
       })
       .from(meetings)
       .where(
