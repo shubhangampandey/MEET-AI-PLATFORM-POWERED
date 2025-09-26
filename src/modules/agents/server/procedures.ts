@@ -65,7 +65,6 @@ export const agentsRouter = createTRPCRouter({
     const {search, page, pageSize} =input;
     const data = await db
       .select({
-      
       ...getTableColumns(agents),
       })
       .from(agents)
